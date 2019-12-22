@@ -1,0 +1,15 @@
+.base-button {
+  font-family: $primary_font_family;
+  padding: 1.2rem 1.8rem;
+  background: $primary-color-dark;
+  border: none;
+  font-size: 1.8rem;
+  color: white;
+  border-radius: 5px;
+  min-width: 16rem;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}

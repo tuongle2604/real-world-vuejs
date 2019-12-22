@@ -1,0 +1,11 @@
+.home-sidebar {
+  background: $dark-2;
+  padding: 1rem;
+  &__title {
+    margin-bottom: 1rem;
+  }
+  &__tag-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}

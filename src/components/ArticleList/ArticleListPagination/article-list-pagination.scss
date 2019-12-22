@@ -1,0 +1,30 @@
+.pagination {
+  margin-top: 3rem;
+  &__item {
+    padding: 1rem 1.3rem;
+    color: $primary-color;
+    font-size: 1.6rem;
+    cursor: pointer;
+    border-left: 1px solid $grey-2;
+    border-top: 1px solid $grey-2;
+    border-bottom: 1px solid $grey-2;
+    background: $dark-1;
+
+    &:first-child {
+      border-top-left-radius: 3px;
+      border-bottom-left-radius: 3px;
+    }
+    &:last-child {
+      border-top-right-radius: 3px;
+      border-bottom-right-radius: 3px;
+      border-right: 1px solid $grey-2;
+    }
+    &:hover {
+      background: $dark-2;
+      text-decoration-line: underline;
+    }
+    &.active {
+      background: $primary-color-dark;
+    }
+  }
+}

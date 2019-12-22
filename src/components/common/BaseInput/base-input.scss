@@ -1,0 +1,37 @@
+.base-input {
+  font-family: $primary_font_family;
+  background: $dark-1;
+  border: 1px solid $grey-2;
+  padding: 1.2rem 1.8rem;
+  border-radius: 3px;
+  width: 100%;
+  font-size: 2rem;
+  color: $grey-1;
+
+  &--small {
+    font-size: 1.6rem;
+    padding: 0.8rem 1.2rem;
+  }
+  &::placeholder {
+    color: $grey-3;
+  }
+}
+
+.base-textarea {
+  font-family: $primary_font_family;
+  background: $dark-1;
+  border: 1px solid $grey-2;
+  padding: 1.2rem 1.8rem;
+  border-radius: 3px;
+  width: 100%;
+  font-size: 2rem;
+  color: $grey-1;
+
+  &.small {
+    font-size: 1.6rem;
+    padding: 0.8rem 1.2rem;
+  }
+  &::placeholder {
+    color: $grey-3;
+  }
+}

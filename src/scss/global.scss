@@ -1,0 +1,21 @@
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400&display=swap");
+@import "~bootstrap/dist/css/bootstrap-grid.min.css";
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+}
+
+html {
+  font-size: 62.5%;
+  font-family: 'Source Sans Pro', sans-serif;
+  background: #181A1B;
+  color: #D3D0C9;
+}
+
+body {
+  margin: 0;
+  font-size: 1.6rem;
+}

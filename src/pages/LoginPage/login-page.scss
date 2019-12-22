@@ -1,0 +1,26 @@
+.login-page {
+  margin-top: 4rem;
+  text-align: center;
+  &__title {
+    font-size: 4rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+  &__link {
+    color: $primary-color;
+    margin-bottom: 2rem;
+    display: block;
+    &:hover {
+      text-decoration-line: underline;
+    }
+  }
+  &__login-form {
+
+  }
+  &__input {
+    margin-bottom: 2rem;
+  }
+  &__button {
+    float: left;
+  }
+}
