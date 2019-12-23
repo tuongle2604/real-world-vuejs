@@ -1,6 +1,9 @@
 .home-sidebar {
   background: $dark-2;
   padding: 1rem;
+  @media (max-width: $screen-sm) {
+    margin-top: 3rem;
+  }
   &__title {
     margin-bottom: 1rem;
   }
