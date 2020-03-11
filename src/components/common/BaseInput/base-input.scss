@@ -1,4 +1,5 @@
 .base-input {
+  outline: none;
   font-family: $primary_font_family;
   background: $dark-1;
   border: 1px solid $grey-2;
@@ -8,7 +9,7 @@
   font-size: 2rem;
   color: $grey-1;
 
-  &--small {
+  &.small {
     font-size: 1.6rem;
     padding: 0.8rem 1.2rem;
   }
@@ -18,6 +19,8 @@
 }
 
 .base-textarea {
+  resize: vertical;
+  outline: none;
   font-family: $primary_font_family;
   background: $dark-1;
   border: 1px solid $grey-2;

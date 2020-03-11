@@ -50,16 +50,16 @@
     }
     &__link {
       text-decoration: none;
-      color: $grey-2;
+      color: $grey-3;
       padding: 1rem;
       display: block;
       &:hover {
-        color: $grey-3;
+        color: $grey-1;
         @media (max-width: $screen-sm) {
           background: $grey-5;
         }
       }
-      &.router-link-active {
+      &.active {
         color: $grey-1;
       }
     }

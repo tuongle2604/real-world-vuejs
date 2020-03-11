@@ -1,39 +1,77 @@
 <template>
-  <div class="container article-page">
-    <div class="col-md-10 offset-md-1 col-sm-12">
-      <BaseInput placeholder="Artcile Title" class="article-page__input" />
-      <BaseInput
-        placeholder="What's this artcile about?"
-        :className="'base-input--small'"
-        class="article-page__input"
-      />
-      <BaseInput
-        :type="'textarea'"
-        :rows="8"
-        placeholder="Write your article"
-        :className="'base-input--small'"
-        class="article-page__input"
-      />
-      <BaseInput
-        placeholder="Enter tags"
-        :className="'base-input--small'"
-        class="article-page__input"
-      />
-      <BaseButton class="article-page__button">
-        Publish Article
-      </BaseButton>
+  <div class="article-page">
+    <div class="article-page__banner" v-if="article.author">
+      <ArticlePageBanner :article="article" />
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="article-page__content">
+            {{ article.body }}
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-8 offset-md-2">
+          <CommentForm @add-comment-success="handleGetComments" />
+        </div>
+        <div class="col-md-8 offset-md-2">
+          <CommentCard
+            v-for="comment in comments"
+            :key="comment.id"
+            :comment="comment"
+            @delete-comment-success="handleGetComments"
+          />
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import BaseInput from "@/components/common/BaseInput";
-import BaseButton from "@/components/common/BaseButton";
+import ArticlePageBanner from "./ArticlePageBanner";
+import CommentForm from "./CommentForm";
+import CommentCard from "./CommentCard";
+
+import { getArticle, getComments } from "@/api";
 
 export default {
   components: {
-    BaseInput,
-    BaseButton
+    ArticlePageBanner,
+    CommentForm,
+    CommentCard
+  },
+  data() {
+    return {
+      article: {},
+      comments: [],
+      test: "article"
+    };
+  },
+  created() {
+    this.handleGetArticle();
+    this.handleGetComments();
+  },
+  methods: {
+    async handleGetArticle() {
+      try {
+        const { slug } = this.$route.params;
+        const { article } = await getArticle(slug);
+        this.article = article;
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    async handleGetComments() {
+      try {
+        const { slug } = this.$route.params;
+        const { comments } = await getComments(slug);
+        this.comments = comments;
+      } catch (e) {
+        console.log(e);
+      }
+    }
   }
 };
 </script>

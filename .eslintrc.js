@@ -9,10 +9,11 @@ module.exports = {
     "eslint:recommended"
   ],
   rules: {
+    indent: "off",
+    "vue/script-indent": ["warn", 2],
     "no-console": process.env.NODE_ENV === "production" ? "error" : "warn",
     "no-debugger": process.env.NODE_ENV === "production" ? "error" : "warn",
-    semi: "warn",
-    indent: "warn"
+    semi: "warn"
   },
   parserOptions: {
     parser: "babel-eslint"

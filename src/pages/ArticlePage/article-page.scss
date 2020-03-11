@@ -1,6 +1,15 @@
 .article-page {
-  margin-top: 4rem;
-  &__input {
-    margin-bottom: 2rem;
+  &__banner {
+    background: $grey-7;
   }
+  &__content {
+    margin-top: 3rem;
+    padding-bottom: 8rem;
+    border-bottom: 1px solid $grey-7;
+    font-size: 2rem;
+  }
+  // margin-top: 4rem;
+  // &__input {
+  //   margin-bottom: 2rem;
+  // }
 }

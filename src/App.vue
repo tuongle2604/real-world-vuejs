@@ -3,6 +3,8 @@
     <AppHeader />
     <router-view />
     <AppFooter />
+
+    <notifications group="notify" />
   </div>
 </template>
 

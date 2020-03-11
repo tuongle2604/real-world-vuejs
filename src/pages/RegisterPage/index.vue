@@ -5,12 +5,34 @@
       <router-link class="register-page__link" :to="{ path: '/login' }">
         Have an account ?
       </router-link>
-      <div class="register-page__form">
-        <BaseInput class="register-page__input" :placeholder="'Username'" />
-        <BaseInput class="register-page__input" :placeholder="'Email'" />
-        <BaseInput class="register-page__input" :placeholder="'Password'" />
 
-        <BaseButton class="register-page__button">
+      <div>
+        <ServerErrorMessage
+          :errors="errors"
+          v-if="Object.keys(errors).length"
+        />
+        <VuelidateMessage :v="$v" v-else />
+      </div>
+
+      <div class="register-page__form">
+        <BaseInput
+          class="register-page__input"
+          :placeholder="'username'"
+          v-model="username"
+        />
+        <BaseInput
+          class="register-page__input"
+          :placeholder="'Email'"
+          v-model="email"
+        />
+        <BaseInput
+          class="register-page__input"
+          type="password"
+          :placeholder="'Password'"
+          v-model="password"
+        />
+
+        <BaseButton class="register-page__button" @click="onSubmit">
           Sign up
         </BaseButton>
       </div>
@@ -19,13 +41,60 @@
 </template>
 
 <script>
-import BaseInput from "@/components/common/BaseInput";
-import BaseButton from "@/components/common/BaseButton";
+import VuelidateMessage from "@/components/Common/VuelidateMessage";
+import ServerErrorMessage from "@/components/Common/ServerErrorMessage";
+import { required, email, minLength } from "vuelidate/lib/validators";
+import { mapActions } from "vuex";
 
 export default {
   components: {
-    BaseInput,
-    BaseButton
+    VuelidateMessage,
+    ServerErrorMessage
+  },
+  data() {
+    return {
+      username: "",
+      email: "",
+      password: "",
+      errors: {}
+    };
+  },
+  validations() {
+    return {
+      username: { usernameRequired: required },
+      email: { required, email },
+      password: { required, minLength: minLength(8) }
+    };
+  },
+  methods: {
+    ...mapActions("auth", ["register"]),
+    onSubmit() {
+      this.errors = {};
+      this.$v.$touch();
+
+      if (!this.$v.$invalid) {
+        this.handleRegister();
+      }
+    },
+    async handleRegister() {
+      try {
+        const data = this.getSignUpData();
+        await this.register(data);
+        this.$router.push({ name: "HomePage" });
+      } catch (res) {
+        this.errors = res.errors;
+        this.$v.$reset();
+      }
+    },
+    getSignUpData() {
+      return {
+        user: {
+          username: this.username,
+          email: this.email,
+          password: this.password
+        }
+      };
+    }
   }
 };
 </script>

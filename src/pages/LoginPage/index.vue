@@ -5,11 +5,29 @@
       <router-link class="login-page__link" :to="{ path: '/register' }">
         Need an account ?
       </router-link>
-      <div class="login-form">
-        <BaseInput class="login-page__input" :placeholder="'Email'" />
-        <BaseInput class="login-page__input" :placeholder="'Password'" />
 
-        <BaseButton class="login-page__button">
+      <div>
+        <ServerErrorMessage
+          :errors="errors"
+          v-if="Object.keys(errors).length"
+        />
+        <VuelidateMessage :v="$v" v-else />
+      </div>
+
+      <div class="login-form">
+        <BaseInput
+          class="login-page__input"
+          :placeholder="'Email'"
+          v-model="email"
+        />
+        <BaseInput
+          class="login-page__input"
+          :placeholder="'Password'"
+          :type="'password'"
+          v-model="password"
+        />
+
+        <BaseButton class="login-page__button" @click="onSubmit">
           Sign In
         </BaseButton>
       </div>
@@ -18,13 +36,57 @@
 </template>
 
 <script>
-import BaseInput from "@/components/common/BaseInput";
-import BaseButton from "@/components/common/BaseButton";
+import VuelidateMessage from "@/components/Common/VuelidateMessage";
+import ServerErrorMessage from "@/components/Common/ServerErrorMessage";
+import { mapActions } from "vuex";
+import { required, email } from "vuelidate/lib/validators";
 
 export default {
   components: {
-    BaseInput,
-    BaseButton
+    VuelidateMessage,
+    ServerErrorMessage
+  },
+  data() {
+    return {
+      email: "",
+      password: "",
+      errors: {}
+    };
+  },
+  validations() {
+    return {
+      email: { required, email },
+      password: { required }
+    };
+  },
+  methods: {
+    ...mapActions("auth", ["login"]),
+    onSubmit() {
+      this.errors = {};
+      this.$v.$touch();
+
+      if (!this.$v.$invalid) {
+        this.handleLogin();
+      }
+    },
+    async handleLogin() {
+      try {
+        const data = this.getLoginData();
+        await this.login(data);
+        this.$router.push({ name: "HomePage" });
+      } catch (res) {
+        this.errors = res.errors;
+        this.$v.$reset();
+      }
+    },
+    getLoginData() {
+      return {
+        user: {
+          email: this.email,
+          password: this.password
+        }
+      };
+    }
   }
 };
 </script>
