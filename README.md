@@ -1,4 +1,5 @@
 # real-world-vuejs
+More detail: https://github.com/gothinkster/realworld
 
 ## Project setup
 ```
