@@ -1,8 +1,9 @@
 <template>
   <div class="article-page">
-    <div class="article-page__banner" v-if="article.author">
-      <ArticlePageBanner :article="article" />
-    </div>
+    <ArticlePageBanner
+      :article="article"
+      @toggle-follow-success="handleGetArticle"
+    />
 
     <div class="container">
       <div class="row">
@@ -56,11 +57,14 @@ export default {
   methods: {
     async handleGetArticle() {
       try {
+        this.$loading.show();
         const { slug } = this.$route.params;
         const { article } = await getArticle(slug);
         this.article = article;
       } catch (e) {
         console.log(e);
+      } finally {
+        this.$loading.hide();
       }
     },
     async handleGetComments() {

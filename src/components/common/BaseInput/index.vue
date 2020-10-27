@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div>
     <textarea
       v-trim-on-blur
@@ -6,7 +6,7 @@
       v-bind="$attrs"
       class="base-textarea"
       :class="className"
-      @change="onChange"
+      @input="onChange"
     >
     </textarea>
     <input
@@ -15,17 +15,30 @@
       class="base-input"
       :class="className"
       v-bind="$attrs"
-      @change="onChange"
+      @input="onChange"
+      @keyup="onKeyup"
     />
   </div>
-</template>
+</template> -->
 
 <script>
 export default {
   inheritAttrs: false,
   props: {
-    isTextArea: Boolean,
-    className: String
+    isTextArea: Boolean
+    // className: String
+  },
+  render(createElement) {
+    const tag = this.isTextArea ? "textarea" : "input";
+    const classByTag = this.isTextArea ? "base-textarea" : "base-input";
+    return createElement(tag, {
+      class: classByTag,
+      attrs: this.$attrs,
+      on: {
+        ...this.$listeners,
+        input: this.onChange
+      }
+    });
   },
   methods: {
     onChange(event) {

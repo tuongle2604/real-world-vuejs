@@ -4,9 +4,33 @@
     font-size: 4rem;
     font-weight: 400;
     text-align: center;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
+
+    @media (max-width: $screen-sm) {
+      font-size: 3rem;
+    }
+  }
+  &__form {
+    padding-bottom: 2rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid $grey-2;
   }
   &__input {
     margin-bottom: 2rem;
+  }
+  &__update-btn {
+    display: flex;
+    margin-left: auto;
+  }
+  &__logout-btn {
+    background: transparent;
+    font-size: 1.6rem;
+    border: 1px solid $red-2;
+    color: $red-1;
+
+    &:hover {
+      background: $red-3;
+      color: white;
+    }
   }
 }

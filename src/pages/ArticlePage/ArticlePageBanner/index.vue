@@ -1,61 +1,68 @@
 <template>
-  <div class="article-banner container">
-    <h1 class="article-banner__title">{{ article.title }}</h1>
-    <div class="article-banner__meta">
-      <div class="article-info">
-        <router-link
-          :to="{
-            name: 'ProfilePage',
-            params: { username: article.author.username }
-          }"
-          class="article-info__image-wrapper"
-        >
-          <img
-            :src="user.image || './images/smiley-cyrus.jpg'"
-            class="article-info__image"
-          />
-        </router-link>
-        <div>
+  <div class="article-banner" ref="loading">
+    <div class="container">
+      <h1 class="article-banner__title">{{ article.title }}</h1>
+      <div class="article-banner__meta" v-if="article.author">
+        <div class="article-info">
           <router-link
             :to="{
               name: 'ProfilePage',
               params: { username: article.author.username }
             }"
-            class=" article-info__author-name"
+            class="article-info__image-wrapper"
           >
-            {{ article.author.username }}
+            <img
+              :src="user.image || '/images/smiley-cyrus.jpg'"
+              class="article-info__image"
+            />
           </router-link>
-          <p class=" article-info__created-date">
-            {{ article.createdAt | moment("ddd MMM DD YYYY") }}
-          </p>
+          <div>
+            <router-link
+              :to="{
+                name: 'ProfilePage',
+                params: { username: article.author.username }
+              }"
+              class=" article-info__author-name"
+            >
+              {{ article.author.username }}
+            </router-link>
+            <p class=" article-info__created-date">
+              {{ article.createdAt | moment("ddd MMM DD YYYY") }}
+            </p>
+          </div>
         </div>
+        <button
+          type="button"
+          class="article-banner__follow"
+          @click="handleToggleFollow(article.author)"
+        >
+          <font-awesome-icon icon="cog" />
+          {{ article.author.following ? "Unfollow" : "Follow" }}
+          {{ article.author.username }}
+        </button>
+        <button
+          v-if="isMyArticle"
+          type="button"
+          class="article-banner__delete-article"
+          @click="handleDeleteArticle"
+        >
+          <font-awesome-icon icon="trash" />
+          Delete Article
+        </button>
+        <button
+          v-else
+          type="button"
+          class="article-banner__favorite"
+          :class="{ favorited: article.favorited }"
+          @click="toggleFavorite(article)"
+        >
+          <font-awesome-icon icon="heart" />
+          {{ article.favorited ? "Unfavorite Article" : "Favorite Article" }}
+          <span class="article-banner__favorite-counter">
+            {{ `(${article.favoritesCount})` }}
+          </span>
+        </button>
       </div>
-      <button type="button" class="article-banner__follow">
-        <font-awesome-icon icon="cog" />
-        {{ article.author.following ? "Unfollow" : "Follow" }}
-        {{ article.author.username }}
-      </button>
-      <button
-        v-if="isMyArticle"
-        type="button"
-        class="article-banner__delete-article"
-        @click="handleDeleteArticle"
-      >
-        <font-awesome-icon icon="trash" />
-        Delete Article
-      </button>
-      <button
-        v-else
-        type="button"
-        class="article-banner__favorite"
-        :class="{ favorited: article.favorited }"
-      >
-        <font-awesome-icon icon="heart" />
-        {{ article.favorited ? "Unfavorite Article" : "Favorite Article" }}
-        <span class="article-banner__favorite-counter">
-          {{ `(${article.favoritesCount})` }}
-        </span>
-      </button>
     </div>
   </div>
 </template>
@@ -63,6 +70,7 @@
 <script>
 import { mapState } from "vuex";
 import { deleteArticle } from "@/api";
+import { favoriteArticle, unfavoriteArticle, followUser, unfollowUser } from "@/api";
 
 export default {
   props: {
@@ -76,13 +84,49 @@ export default {
   },
   methods: {
     async handleDeleteArticle() {
+      const loading = this.$loading();
       try {
-        this.$loading.show();
+        loading.show();
         await deleteArticle(this.article.slug);
         this.$router.push({ name: "HomePage" });
       } catch (e) {
         this.$notifyError();
       } finally {
+        loading.hide();
+      }
+    },
+    async toggleFavorite(article) {
+      const loading = this.$loading();
+
+      try {
+        loading.show();
+        const slug = article.slug;
+        if (article.favorited) {
+          await unfavoriteArticle(slug);
+          article.favorited = false;
+          article.favoritesCount--;
+        } else {
+          await favoriteArticle(slug);
+          article.favorited = true;
+          article.favoritesCount++;
+        }
+      } catch (e) {
+        this.$notifyError();
+      } finally {
+        loading.hide();
+      }
+    },
+    async handleToggleFollow({ username, following }) {
+      const loading = this.$loading();
+      try {
+        this.$loading.show();
+        const toggleFollow = following
+          ? unfollowUser(username)
+          : followUser(username);
+        const { profile } = await toggleFollow;
+        this.$emit("toggle-follow-success", profile);
+      } catch (e) {
+        this.$notifyError();
         this.$loading.hide();
       }
     }

@@ -3,27 +3,14 @@
     <HomePageBanner />
     <div class="container">
       <div class="row">
-        <div class="col-md-9" ref="loading">
+        <div class="col-md-9">
           <FeedToggle
-            :tabs="tabs"
-            :currentTab="currentTab"
+            :showingTabs="showingTabs"
+            :selectedTab="selectedTab"
             @select-tab="handleSelectTab"
           />
-          <div class="home-page__article-list" v-if="articles.length">
-            <ArticlePreview
-              v-for="article in articles"
-              :key="article.slug"
-              :article="article"
-            />
-          </div>
-          <div class="home-page__message" v-else>
-            <p v-if="isArticlesLoading">Loading articles...</p>
-            <p v-else>No articles are here... yet.</p>
-          </div>
-          <Pagination
-            :pagination="pagination"
-            @page-change="handlePageChange"
-          />
+
+          <ArticleList :selectedTab="selectedTab" />
         </div>
         <div class="col-md-3">
           <HomePageSidebar @select-tag="handleSelectTag" />
@@ -37,8 +24,7 @@
 import HomePageBanner from "./HomePageBanner";
 import HomePageSidebar from "./HomePageSidebar";
 import FeedToggle from "@/components/FeedToggle";
-import ArticlePreview from "@/components/ArticlePreview";
-import Pagination from "@/components/Pagination";
+import ArticleList from "@/components/ArticleList";
 import { getArticles, getFeeds } from "@/api";
 import { mapGetters } from "vuex";
 
@@ -47,96 +33,56 @@ export default {
     HomePageBanner,
     HomePageSidebar,
     FeedToggle,
-    ArticlePreview,
-    Pagination
+    ArticleList
   },
   data() {
     return {
-      authTabs: ["Your feed", "Global Feed"],
-      defaultTabs: ["Global Feed"],
-      currentTab: "",
-      articles: [],
-      isArticlesLoading: false,
-      pagination: {
-        currentPage: 1,
-        totalItems: 0,
-        itemPerpage: 20
-      }
+      selectedTag: "",
+      selectedTab: {}
     };
   },
   computed: {
     ...mapGetters("auth", ["isAuth"]),
-    tabs() {
-      const tabs = this.isAuth ? this.authTabs : this.defaultTabs;
-      if (tabs.includes(this.currentTab)) {
-        return tabs;
-      }
-
-      return tabs.concat(this.currentTab);
+    allTabs() {
+      return [
+        {
+          name: "Your feed",
+          fetchData: getFeeds,
+          isAuth: true,
+          params: {}
+        },
+        {
+          name: "Global Feed",
+          fetchData: getArticles,
+          isAuth: false,
+          params: {}
+        },
+        {
+          name: this.selectedTag,
+          fetchData: getArticles,
+          isAuth: false,
+          params: { tag: this.selectedTag }
+        }
+      ];
     },
-    isTagSelected() {
-      return this.isAuth
-        ? this.tabs.length !== this.authTabs.length
-        : this.tabs.length !== this.defaultTabs.length;
-    },
-    isFeedSelected() {
-      return this.currentTab === this.authTabs[0];
-    },
-    articlesParams() {
-      return {
-        tag: this.isTagSelected ? this.currentTab : null,
-        limit: this.pagination.itemPerpage,
-        offset: this.pagination.itemPerpage * (this.pagination.currentPage - 1)
-      };
+    showingTabs() {
+      return this.allTabs
+        .filter(tab => (this.isAuth ? true : !tab.isAuth))
+        .filter(tab => tab.name !== "");
     }
   },
   mounted() {
-    this.handleSelectTab(this.defaultTabs[0]);
+    this.handleSelectTab(this.showingTabs[0]);
   },
   methods: {
-    handlePageChange(page) {
-      this.pagination.currentPage = page;
-      this.getArticleList();
-    },
     handleSelectTag(tag) {
-      this.selectTab(tag);
-      this.resetPaging();
-      this.getArticleList();
+      this.selectedTag = tag;
+      this.selectedTab = this.allTabs.find(o => o.name === tag);
     },
     handleSelectTab(tab) {
-      this.selectTab(tab);
-      this.resetPaging();
-      this.getArticleList();
-    },
-    selectTab(tab) {
-      this.currentTab = tab;
-    },
-    resetPaging() {
-      this.pagination.currentPage = 1;
-    },
-    async getArticleList() {
-      try {
-        this.$loading.show();
-        this.isArticlesLoading = true;
-
-        const fetchData = this.isFeedSelected
-          ? getFeeds(this.articlesParams)
-          : getArticles(this.articlesParams);
-
-        const { articles, articlesCount } = await fetchData;
-
-        this.articles = articles;
-        this.pagination.totalItems = articlesCount;
-      } catch (e) {
-        // handle error
-      } finally {
-        this.isArticlesLoading = false;
-        this.$loading.hide();
-      }
+      this.selectedTab = tab;
+      this.selectedTag = "";
     }
   }
 };
 </script>
-<style lang="scss" scoped>
-@import "./home-page.scss";
-</style>

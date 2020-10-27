@@ -3,10 +3,10 @@
     <div class="comment-form__input">
       <BaseInput
         v-model="comment"
+        class="small p-4 border-none"
         :isTextArea="true"
         :type="'textarea'"
         :rows="4"
-        :className="'small p-4 border-none'"
         :placeholder="'Write a comment...'"
       />
     </div>
@@ -51,6 +51,7 @@ export default {
         const { slug } = this.$route.params;
         const data = { body: this.comment };
         await addComment(slug, data);
+        this.comment = "";
         this.$emit("add-comment-success");
       } catch (e) {
         this.$notifyError();

@@ -1,5 +1,5 @@
-import ApiService from "@/common/apiService";
-import TokenService from "@/common/tokenService";
+import ApiService from "@/helper/apiService";
+import TokenService from "@/helper/tokenService";
 import { login, register, checkAuth } from "@/api";
 
 const state = {
@@ -35,6 +35,10 @@ const actions = {
     return checkAuth().then(res => {
       commit("setUserInfo", res.user);
     });
+  },
+  logout: ({ commit }) => {
+    commit("setUserInfo", {});
+    TokenService.removeToken();
   }
 };
 

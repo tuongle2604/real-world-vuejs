@@ -3,12 +3,12 @@
     <ul class="feed-toggle__inner">
       <li
         class="feed-toggle__item"
-        v-for="tab in tabs"
-        :key="tab"
-        :class="{ active: currentTab === tab }"
+        v-for="tab in showingTabs"
+        :key="tab.name"
+        :class="{ active: selectedTab.name === tab.name }"
         @click="onSelectTab(tab)"
       >
-        {{ tab }}
+        {{ tab.name }}
       </li>
     </ul>
   </div>
@@ -17,12 +17,12 @@
 <script>
 export default {
   props: {
-    tabs: Array,
-    currentTab: String
+    showingTabs: Array,
+    selectedTab: Object
   },
   methods: {
     onSelectTab(tab) {
-      if (tab === this.currentTab) {
+      if (tab.name === this.selectedTab.name) {
         return;
       }
       this.$emit("select-tab", tab);

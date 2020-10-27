@@ -40,7 +40,7 @@ export default {
         const { tags } = await getTags();
         this.tags = tags;
       } catch (err) {
-        console.log(err);
+        // console.log(err);
       } finally {
         this.isLoading = false;
       }

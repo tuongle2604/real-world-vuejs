@@ -19,12 +19,14 @@
           class="login-page__input"
           :placeholder="'Email'"
           v-model="email"
+          @keyup.enter="onSubmit"
         />
         <BaseInput
           class="login-page__input"
           :placeholder="'Password'"
           :type="'password'"
           v-model="password"
+          @keyup.enter="onSubmit"
         />
 
         <BaseButton class="login-page__button" @click="onSubmit">

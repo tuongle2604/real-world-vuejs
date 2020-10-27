@@ -18,11 +18,13 @@
         <BaseInput
           class="register-page__input"
           :placeholder="'username'"
+          v-trim-on-blur
           v-model="username"
         />
         <BaseInput
           class="register-page__input"
           :placeholder="'Email'"
+          v-trim-on-blur
           v-model="email"
         />
         <BaseInput

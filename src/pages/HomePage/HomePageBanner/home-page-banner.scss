@@ -8,9 +8,16 @@
   &__title {
     margin-bottom: 1rem;
     font-size: 5rem;
+
+    @media (max-width: $screen-md) {
+      font-size: 4rem;;
+    }
   }
   &__description {
     font-size: 2.4rem;
     font-weight: 300;
+    @media (max-width: $screen-sm) {
+      font-size: 2rem;;
+    }
   }
 }

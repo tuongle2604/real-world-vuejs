@@ -1,6 +1,6 @@
-import END_POINTS from "@/common/endPoints";
-import ApiService from "@/common/apiService";
-import { replaceParams } from "@/common/utils";
+import END_POINTS from "@/helper/endPoints";
+import ApiService from "@/helper/apiService";
+import { replaceParams } from "@/helper/utils";
 
 const getProfile = username => {
   const url = replaceParams(END_POINTS.GET_PROFILE, username);

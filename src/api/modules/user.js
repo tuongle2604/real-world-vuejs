@@ -1,5 +1,5 @@
-import END_POINTS from "@/common/endPoints";
-import ApiService from "@/common/apiService";
+import END_POINTS from "@/helper/endPoints";
+import ApiService from "@/helper/apiService";
 
 const login = data => {
   return ApiService.post(END_POINTS.LOGIN, data);

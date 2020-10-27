@@ -7,11 +7,11 @@
       />
 
       <h1 class="settings-page__title">Your Settings</h1>
+      {{ user.bio }}
       <div class="settings-page__form">
         <BaseInput
-          class="settings-page__input"
+          class="settings-page__input small"
           v-model="user.image"
-          :className="'small'"
           :placeholder="'URL of profile picture'"
         />
         <BaseInput
@@ -38,10 +38,14 @@
           :placeholder="'New Password'"
         />
 
-        <BaseButton class="register-page__button" @click="handleUpdateUser">
+        <BaseButton class="settings-page__update-btn" @click="handleUpdateUser">
           Update Settings
         </BaseButton>
       </div>
+
+      <BaseButton class="settings-page__logout-btn" @click="handleLogOut">
+        Or click here to log out
+      </BaseButton>
     </div>
   </div>
 </template>
@@ -49,6 +53,7 @@
 <script>
 import ServerErrorMessage from "@/components/Common/ServerErrorMessage";
 import { getUser, updateUser } from "@/api";
+import { mapActions } from "vuex";
 
 export default {
   components: {
@@ -65,6 +70,7 @@ export default {
     this.handleGetUser();
   },
   methods: {
+    ...mapActions("auth", ["logout"]),
     async handleGetUser() {
       try {
         const { user } = await getUser();
@@ -91,6 +97,10 @@ export default {
         : this.user;
 
       return { user: userInfo };
+    },
+    async handleLogOut() {
+      await this.logout();
+      this.$router.push({ name: "HomePage" });
     }
   }
 };

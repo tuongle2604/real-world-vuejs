@@ -10,25 +10,25 @@
       />
       <BaseInput
         placeholder="What's this artcile about?"
-        class="article-page__input base-input--small"
-        :className="'small'"
+        class="article-page__input base-input--small small"
         v-model="description"
       />
       <BaseInput
         placeholder="Write your article"
-        class="article-page__input"
-        :className="'small'"
+        class="article-page__input small"
         :rows="8"
         :isTextArea="true"
         v-model="body"
       />
       <BaseInput
         placeholder="Enter tags"
-        class="article-page__input"
-        :className="'small'"
+        class="article-page__input small"
         v-model="tagList"
       />
-      <BaseButton class="article-page__button" @click="createArticle">
+      <BaseButton
+        class="article-page__button float-right"
+        @click="createArticle"
+      >
         Publish Article
       </BaseButton>
     </div>
@@ -72,8 +72,6 @@ export default {
         });
       } catch (res) {
         this.errors = res.errors;
-        console.log(res);
-        // handle error
       }
     }
   }

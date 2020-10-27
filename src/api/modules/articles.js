@@ -1,6 +1,6 @@
-import END_POINTS from "@/common/endPoints";
-import ApiService from "@/common/apiService";
-import { replaceParams } from "@/common/utils";
+import END_POINTS from "@/helper/endPoints";
+import ApiService from "@/helper/apiService";
+import { replaceParams } from "@/helper/utils";
 
 const getArticles = params => {
   return ApiService.get(END_POINTS.LIST_ARTICLES, params);
@@ -15,9 +15,8 @@ const getArticle = slug => {
   return ApiService.get(url);
 };
 
-const createArticle = (slug, data) => {
-  const url = replaceParams(END_POINTS.CREATE_ARITLCE, slug);
-  return ApiService.post(url, data);
+const createArticle = data => {
+  return ApiService.post(END_POINTS.CREATE_ARITLCE, data);
 };
 
 const updateArticle = (slug, data) => {
