@@ -1,6 +1,10 @@
 <template>
   <div class="server-errors">
-    <p class="server-errors__message" v-for="message in displayMessage">
+    <p
+      class="server-errors__message"
+      v-for="message in displayMessage"
+      :key="message"
+    >
       {{ message }}
     </p>
   </div>

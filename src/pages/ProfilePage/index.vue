@@ -79,7 +79,7 @@ export default {
         const { profile } = await getProfile(username);
         this.profile = profile;
       } catch (e) {
-        console.log(e);
+        // handle error
       }
     },
     async handleToggleFollow({ username, following }) {
@@ -95,7 +95,7 @@ export default {
         const { profile } = await toggleFollow;
         this.profile = profile;
       } catch (e) {
-        console.log(e);
+        // handle error
       }
     }
   }

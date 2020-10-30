@@ -78,7 +78,6 @@ export default {
           article.favoritesCount++;
         }
       } catch (e) {
-        console.log(e);
         // handle error
       }
     }

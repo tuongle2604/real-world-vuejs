@@ -62,7 +62,7 @@ export default {
         const { article } = await getArticle(slug);
         this.article = article;
       } catch (e) {
-        console.log(e);
+        // handle error
       } finally {
         this.$loading.hide();
       }
@@ -73,7 +73,7 @@ export default {
         const { comments } = await getComments(slug);
         this.comments = comments;
       } catch (e) {
-        console.log(e);
+        // handle error
       }
     }
   }

@@ -10,10 +10,7 @@
     <div class="" v-else>
       <p class="mt-4">No articles are here... yet.</p>
     </div>
-    <Pagination
-      :pagination="pagination"
-      @page-change="handlePageChange"
-    />
+    <Pagination :pagination="pagination" @page-change="handlePageChange" />
   </div>
 </template>
 
@@ -37,7 +34,7 @@ export default {
         totalItems: 0,
         itemPerpage: 20
       }
-    }
+    };
   },
   computed: {
     articlesParams() {
@@ -69,7 +66,9 @@ export default {
       try {
         this.$loading.show();
         const { fetchData } = this.selectedTab;
-        const { articles, articlesCount } = await fetchData(this.articlesParams);
+        const { articles, articlesCount } = await fetchData(
+          this.articlesParams
+        );
 
         this.articles = articles;
         this.pagination.totalItems = articlesCount;
@@ -80,8 +79,7 @@ export default {
       }
     }
   }
-}
+};
 </script>
 
-<style lang="css" scoped>
-</style>
+<style lang="css" scoped></style>

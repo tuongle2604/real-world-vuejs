@@ -70,7 +70,12 @@
 <script>
 import { mapState } from "vuex";
 import { deleteArticle } from "@/api";
-import { favoriteArticle, unfavoriteArticle, followUser, unfollowUser } from "@/api";
+import {
+  favoriteArticle,
+  unfavoriteArticle,
+  followUser,
+  unfollowUser
+} from "@/api";
 
 export default {
   props: {
@@ -117,7 +122,7 @@ export default {
       }
     },
     async handleToggleFollow({ username, following }) {
-      const loading = this.$loading();
+      // const loading = this.$loading();
       try {
         this.$loading.show();
         const toggleFollow = following
