@@ -1,13 +1,11 @@
 <template>
   <div class="container settings-page">
     <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 col-sm-12">
+      <h1 class="settings-page__title">Your Settings</h1>
       <ServerErrorMessage
         :errors="errors"
         v-if="errors && Object.keys(errors).length"
       />
-
-      <h1 class="settings-page__title">Your Settings</h1>
-      {{ user.bio }}
       <div class="settings-page__form">
         <BaseInput
           class="settings-page__input small"
@@ -51,7 +49,7 @@
 </template>
 
 <script>
-import ServerErrorMessage from "@/components/Common/ServerErrorMessage";
+import ServerErrorMessage from "@/components/ServerErrorMessage";
 import { getUser, updateUser } from "@/api";
 import { mapActions } from "vuex";
 

@@ -43,8 +43,8 @@
 </template>
 
 <script>
-import VuelidateMessage from "@/components/Common/VuelidateMessage";
-import ServerErrorMessage from "@/components/Common/ServerErrorMessage";
+import VuelidateMessage from "@/components/VuelidateMessage";
+import ServerErrorMessage from "@/components/ServerErrorMessage";
 import { required, email, minLength } from "vuelidate/lib/validators";
 import { mapActions } from "vuex";
 

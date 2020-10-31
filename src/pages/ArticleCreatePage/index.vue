@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import ServerErrorMessage from "@/components/Common/ServerErrorMessage";
+import ServerErrorMessage from "@/components/ServerErrorMessage";
 import { createArticle, getArticle, updateArticle } from "@/api";
 
 export default {
