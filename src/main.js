@@ -17,10 +17,9 @@ Vue.use(VueNotify);
 Vue.use(require("vue-moment"));
 
 Vue.config.productionTip = false;
-
 const requireComponent = require.context(
   // The relative path of the components folder
-  "./components/Common",
+  "./components/BaseComponent",
   // Whether or not to look in subfolders
   true,
   // The regular expression used to match base component filenames
