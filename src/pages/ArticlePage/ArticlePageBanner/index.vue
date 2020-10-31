@@ -89,7 +89,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapGetters } from "vuex";
 import { deleteArticle } from "@/api";
 import {
   favoriteArticle,
@@ -104,6 +104,7 @@ export default {
   },
   computed: {
     ...mapState("auth", ["user"]),
+    ...mapGetters("auth", ["isAuth"]),
     isMyArticle() {
       return this.article.author.username === this.user.username;
     }
@@ -125,8 +126,12 @@ export default {
       }
     },
     async toggleFavorite(article) {
-      const loading = this.$loading();
+      if (!this.isAuth) {
+        alert(`You need loggin to follow ${this.article.author.username}!`);
+        return;
+      }
 
+      const loading = this.$loading();
       try {
         loading.show();
         const slug = article.slug;
@@ -146,8 +151,12 @@ export default {
       }
     },
     async handleToggleFollow({ username, following }) {
-      const loading = this.$loading();
+      if (!this.isAuth) {
+        alert(`You need loggin to follow ${this.article.author.username}!`);
+        return;
+      }
 
+      const loading = this.$loading();
       try {
         loading.show();
         const toggleFollow = following
