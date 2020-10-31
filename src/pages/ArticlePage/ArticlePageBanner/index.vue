@@ -12,7 +12,7 @@
             class="article-info__image-wrapper"
           >
             <img
-              :src="user.image || '@/assets/smiley-cyrus.jpg'"
+              :src="user.image || require('@/assets/smiley-cyrus.jpg')"
               class="article-info__image"
             />
           </router-link>

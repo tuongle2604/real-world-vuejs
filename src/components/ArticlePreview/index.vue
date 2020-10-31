@@ -3,7 +3,7 @@
     <div class="article-preview__heading">
       <div class="article-preview__image-wrapper">
         <img
-          :src="article.author.image || '@/assets/smiley-cyrus.jpg'"
+          :src="article.author.image || require('@/assets/smiley-cyrus.jpg')"
           class="article-preview__image"
         />
       </div>

@@ -12,7 +12,7 @@
     </div>
     <div class="comment-form__footer">
       <img
-        :src="user.image || '@/assets/smiley-cyrus.jpg'"
+        :src="user.image || require('@/assets/smiley-cyrus.jpg')"
         class="comment-form__image"
       />
       <button
