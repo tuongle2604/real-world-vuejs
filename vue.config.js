@@ -1,9 +1,6 @@
 module.exports = {
   lintOnSave: true,
-  publicPath:
-    process.env.NODE_ENV === "production"
-      ? "http://45.76.162.36/realworld/"
-      : "/",
+  publicPath: process.env.NODE_ENV === "production" ? "/realworld" : "/",
   css: {
     loaderOptions: {
       scss: {
