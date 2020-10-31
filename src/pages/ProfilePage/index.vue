@@ -45,13 +45,11 @@ export default {
         {
           name: "My Articles",
           fetchData: getArticles,
-          isAuth: true,
           params: { author: this.currentUser }
         },
         {
           name: "Favorited Articles",
           fetchData: getArticles,
-          isAuth: false,
           params: { favorited: this.currentUser }
         }
       ];
@@ -63,11 +61,9 @@ export default {
       handler() {
         this.currentUser = this.$route.params.username;
         this.getUserProfile();
+        this.handleSelectTab(this.allTabs[1]);
       }
     }
-  },
-  mounted() {
-    this.handleSelectTab(this.allTabs[1]);
   },
   methods: {
     handleSelectTab(tab) {

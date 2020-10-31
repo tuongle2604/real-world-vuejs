@@ -21,7 +21,7 @@ const createArticle = data => {
 
 const updateArticle = (slug, data) => {
   const url = replaceParams(END_POINTS.UPDATE_ARITLCE, slug);
-  return ApiService.post(url, data);
+  return ApiService.put(url, data);
 };
 
 const deleteArticle = slug => {

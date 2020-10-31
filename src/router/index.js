@@ -27,6 +27,13 @@ const routes = [
     meta: { requiresAuth: true }
   },
   {
+    path: "/article-edit/:slug",
+    name: "ArticleEditPage",
+    component: () => import("../pages/ArticleCreatePage"),
+    props: true,
+    meta: { requiresAuth: true }
+  },
+  {
     path: "/article/:slug",
     name: "ArticlePage",
     component: () => import("../pages/ArticlePage")

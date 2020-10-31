@@ -2,12 +2,13 @@
   <div class="home-sidebar">
     <p class="home-sidebar__title">Popular Tags</p>
     <div class="home-sidebar__tag-wrapper" v-if="tags.length">
-      <ArticleTag
+      <span
+        class="home-sidebar__tag"
         v-for="tag in tags"
-        :tagName="tag"
         :key="tag"
-        @click.native="$emit('select-tag', tag)"
-      />
+        @click="$emit('select-tag', tag)"
+        >{{ tag }}
+      </span>
     </div>
     <div v-else>
       <p v-if="isLoading">Loading tags...</p>
@@ -18,12 +19,8 @@
 
 <script>
 import { getTags } from "@/api";
-import ArticleTag from "@/components/ArticleTag";
 
 export default {
-  components: {
-    ArticleTag
-  },
   data() {
     return {
       tags: [],

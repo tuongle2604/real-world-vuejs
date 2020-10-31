@@ -1,0 +1,10 @@
+.tag-list {
+  &__tag {
+    color: white;
+    padding: 0.4rem 1rem;
+    margin-right: 0.5rem;
+    border-radius: 20px;
+    font-size: 1.3rem;
+    border: 1px solid $grey-2;
+  }
+}

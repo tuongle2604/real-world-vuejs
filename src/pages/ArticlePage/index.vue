@@ -7,9 +7,12 @@
 
     <div class="container">
       <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12 article-page__body">
           <div class="article-page__content">
             {{ article.body }}
+          </div>
+          <div class="article-page__tag-list">
+            <TagList :tagList="article.tagList"></TagList>
           </div>
         </div>
       </div>
@@ -34,6 +37,7 @@
 import ArticlePageBanner from "./ArticlePageBanner";
 import CommentForm from "./CommentForm";
 import CommentCard from "./CommentCard";
+import TagList from "@/components/TagList";
 
 import { getArticle, getComments } from "@/api";
 
@@ -41,7 +45,8 @@ export default {
   components: {
     ArticlePageBanner,
     CommentForm,
-    CommentCard
+    CommentCard,
+    TagList
   },
   data() {
     return {

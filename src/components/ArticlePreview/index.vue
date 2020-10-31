@@ -36,17 +36,24 @@
     <p class="article-preview__description" @click="goToArticlePage">
       {{ article.description }}
     </p>
-    <p class="article-preview__read-more" @click="goToArticlePage">
-      Read more...
-    </p>
+    <div class="article-preview__footing">
+      <p class="article-preview__read-more" @click="goToArticlePage">
+        Read more...
+      </p>
+      <TagList :tagList="article.tagList"></TagList>
+    </div>
   </div>
 </template>
 
 <script>
 import { favoriteArticle, unfavoriteArticle } from "@/api";
 import { mapGetters } from "vuex";
+import TagList from "@/components/TagList";
 
 export default {
+  components: {
+    TagList
+  },
   props: {
     article: Object
   },

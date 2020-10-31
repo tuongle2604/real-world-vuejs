@@ -62,6 +62,10 @@
     font-size: 1.4rem;
     cursor: pointer;
   }
+  &__footing {
+    display: flex;
+    justify-content: space-between;
+  }
   &__read-more {
     cursor: pointer;
     color: $grey-4;
