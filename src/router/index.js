@@ -2,13 +2,15 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import store from "@/store";
 import TokenService from "@/helper/tokenService";
+import HomePage from "@/pages/HomePage";
+
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
     name: "HomePage",
-    component: () => import("../pages/HomePage")
+    component: HomePage
   },
   {
     path: "/login",
