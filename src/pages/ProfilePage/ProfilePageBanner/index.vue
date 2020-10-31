@@ -4,7 +4,7 @@
       <div class="col-lg-10 offset-lg-1 col-md-12">
         <div class="profile-banner__avatar-wrapper">
           <img
-            :src="profile.image || './images/smiley-cyrus.jpg'"
+            :src="profile.image || '.@/assets/smiley-cyrus.jpg'"
             class="profile-banner__avatar"
           />
         </div>
