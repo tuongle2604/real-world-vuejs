@@ -1,6 +1,6 @@
 <template>
   <div class="container-md header">
-    <router-link class="header__brand" :to="{ path: '/' }">
+    <router-link class="header__brand" :to="{ name: 'HomePage' }">
       <img src="@/assets/logo.png" class="header__brand-image" />
       <span class="header__brand-name">Realworld</span>
     </router-link>
