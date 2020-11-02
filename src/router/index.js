@@ -57,7 +57,8 @@ const routes = [
     path: "/profile/:username",
     name: "ProfilePage",
     component: ProfilePage
-  }
+  },
+  { path: "*", redirect: "/" }
 ];
 
 const router = new VueRouter({
