@@ -47,7 +47,7 @@ export default {
   },
   watch: {
     selectedTab: {
-      // immediate: true,
+      immediate: true,
       handler() {
         this.resetPaging();
         this.getArticleList();
