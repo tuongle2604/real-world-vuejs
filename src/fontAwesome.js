@@ -8,6 +8,7 @@ import {
   faTrash,
   faCog,
   faPlus,
+  faUser,
   faUserEdit,
   faPencilAlt
 } from "@fortawesome/free-solid-svg-icons";
@@ -18,6 +19,7 @@ library.add(faEdit);
 library.add(faTrash);
 library.add(faCog);
 library.add(faPlus);
+library.add(faUser);
 library.add(faUserEdit);
 library.add(faPencilAlt);
 
