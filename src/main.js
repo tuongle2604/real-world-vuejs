@@ -25,7 +25,6 @@ const requireComponent = require.context(
   // The regular expression used to match base component filenames
   /^.+\.vue$/
 );
-console.log("test webhook 2");
 // register all common component
 requireComponent.keys().forEach(dir => {
   if (!dir.includes("Base")) return;
