@@ -4,7 +4,7 @@ You can view a live demo at [https://tuongle.xyz/realworld/](https://tuongle.xyz
 
 More detail: https://github.com/gothinkster/realworld.
 
-![realworld project image](https://tuongle.xyz/realworld-vuejs-small.jpg);
+![realworld project image](https://tuongle.xyz/realworld-vuejs-small.jpg)
 
 ## Project setup
 
