@@ -1,6 +1,6 @@
 # Realworld project with Vuejs
 
-You can view a live demo at [https://tuongle.xyz/2048/](https://tuongle.xyz/2048/).
+You can view a live demo at [https://tuongle.xyz/realworld/](https://tuongle.xyz/realworld/).
 
 More detail: https://github.com/gothinkster/realworld.
 
